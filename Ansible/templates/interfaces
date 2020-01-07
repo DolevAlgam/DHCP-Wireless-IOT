@@ -1,0 +1,12 @@
+# Configuration for batman-adv
+auto wlan0
+iface wlan0 inet6 manual
+    #mtu 1532
+    wireless-channel 1
+    wireless-essid my-mesh-network
+    wireless-mode ad-hoc
+    wireless-ap {{ ansible_facts.wlan0.macaddress }}
+
+auto bat0
+iface bat0 inet dhcp
+    pre-up /usr/sbin/batctl if add wlan0

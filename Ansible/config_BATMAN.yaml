@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+  tasks:
+    - name: Adding batman-adv kernel modules to onboot
+      lineinfile:
+        path: /etc/modules
+        line: batman-adv
+
+    - name: Install batctl and iw
+      apt:
+        pkg:
+          - batctl
+          - iw
+
+#    - name: Config Hostname For DNS
+
+    - name: Templating network configuration file
+      template:
+        src: interfaces
+        dest: /etc/network/interfaces
+
+    - name: Twmplating dhcp client configuration file
+      template:
+        src: dhclient.conf
+        dest: /etc/dhcp/dhclient.conf
+
+    - name: Reboot
+      reboot:
+        reboot_timeout: 1

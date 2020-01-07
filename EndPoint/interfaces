@@ -1,0 +1,27 @@
+#For this to work you will to have two packages: bridge-utils and batctl,
+# and for the kernel module batman-adv to be loaded.
+
+auto wlan0
+iface wlan0 inet6 manual
+    #mtu 1532
+    wireless-channel 1
+    wireless-essid my-mesh-network
+    wireless-mode ad-hoc
+    wireless-ap dc:a6:32:11:59:39
+
+auto bat0
+iface bat0 inet manual
+    pre-up /usr/sbin/batctl
+
+auto eth0
+iface eth0 inet manual
+
+auto mesh-bridge
+iface mesh-bridge inet static
+    bridge_ports eth0 bato0
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+        address 192.168.0.3
+        netmask 255.255.255.0
+        gateway 192.168.0.254
