@@ -18,7 +18,7 @@ iface eth0 inet manual
 
 auto mesh-bridge
 iface mesh-bridge inet static
-    bridge_ports eth0 bato0
+    bridge_ports eth0 bat0
     bridge_stp off
     bridge_waitport 0
     bridge_fd 0
